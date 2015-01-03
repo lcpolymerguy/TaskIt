@@ -27,9 +27,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         taskArray = [task1, task2, TaskModel(task: "Gym", subTask: "Leg Day", date: date3)]
         
-        self.tableView.reloadData()
+//       self.tableView.reloadData()
+// fatal error: unexpectedly found nil while unwrapping an Optional value    
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+//       self.tableView.reloadData()
+// fatal error: unexpectedly found nil while unwrapping an Optional value
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -44,6 +52,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let thisTask = taskArray[indexPath!.row]
             detailVC.detailTaskModel = thisTask
         }
+        else if segue.identifier == "showTaskAdd" {
+            let addTaskVC:AddTaskViewController = segue.destinationViewController as AddTaskViewController
+            addTaskVC.mainVC = self
+        }
+    }
+    
+
+    @IBAction func addButtonTapped(sender: UIBarButtonItem) {
+        self.performSegueWithIdentifier("showTaskAdd", sender: self)
     }
     
     // UITableViewDataSource
