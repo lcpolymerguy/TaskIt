@@ -27,15 +27,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         taskArray = [task1, task2, TaskModel(task: "Gym", subTask: "Leg Day", date: date3)]
         
-//       self.tableView.reloadData()
-// fatal error: unexpectedly found nil while unwrapping an Optional value    
+        self.tableView.reloadData()
     }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        /*
+        func sortByDate(taskOne:TaskModel, taskTwo:TaskModel) -> Bool {
+            return taskOne.date.timeIntervalSince1970 < taskTwo.date.timeIntervalSince1970
+        }
+        taskArray = taskArray.sorted(sortByDate)
+        */
         
-//       self.tableView.reloadData()
-// fatal error: unexpectedly found nil while unwrapping an Optional value
+        taskArray = taskArray.sorted {
+            (taskOne:TaskModel, taskTwo:TaskModel) -> Bool in
+            // comparison logic here
+            return taskOne.date.timeIntervalSince1970 < taskTwo.date.timeIntervalSince1970
+        }
+        
+       self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -51,6 +61,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let indexPath = self.tableView.indexPathForSelectedRow()
             let thisTask = taskArray[indexPath!.row]
             detailVC.detailTaskModel = thisTask
+            detailVC.mainVC = self
         }
         else if segue.identifier == "showTaskAdd" {
             let addTaskVC:AddTaskViewController = segue.destinationViewController as AddTaskViewController
@@ -91,6 +102,5 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         performSegueWithIdentifier("showTaskDetail", sender: self)
     }
-    
 }
 

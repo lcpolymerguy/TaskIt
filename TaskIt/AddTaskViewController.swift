@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddTaskViewController: ViewController {
+class AddTaskViewController: UIViewController {
 
     var mainVC: ViewController!
     
@@ -33,7 +33,7 @@ class AddTaskViewController: ViewController {
 
     @IBAction func addTaskButtonTapped(sender: UIButton) {
         var task = TaskModel(task: taskTextField.text, subTask: subtaskTextField.text, date: dueDatePicker.date)
-        mainVC.taskArray.append(task)
+        mainVC?.taskArray.append(task)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
